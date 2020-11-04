@@ -109,7 +109,8 @@ game.BirdEntity = me.Entity.extend({
             .to({y: currentPos}, 1000)
             .to({y: finalPos}, 1000)
             .onComplete(function() {
-                me.state.change(me.state.GAME_OVER);
+                Android.gameOver(1,200);
+                // me.state.change(me.state.GAME_OVER);
             });
         this.endTween.start();
     }
