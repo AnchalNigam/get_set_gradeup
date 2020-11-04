@@ -1,5 +1,75 @@
 game.HUD = game.HUD || {};
 
+game.HUD.TimerManager = me.Entity.extend(
+    {
+    init: function()
+    {
+    // call the super constructor
+    var settings = {};
+    settings.width = 10;
+    settings.height = 10;
+    // call the super constructor
+    this._super(me.Entity, 'init', [0, 0, settings]);
+    this.complete = false;
+    
+                // 5 minutes in milliseconds, count down to true
+                this.timer = new game.HUD.TimerItem(60 * 1000, true, 50, 50, "timer");
+                me.game.world.addChild(this.timer);
+            },
+            update: function()
+            {
+                this.timer.update(1);
+            }
+});
+game.HUD.TimerItem = me.Renderable.extend({
+    init: function(time, countdown, x, y, name) {
+    // call the constructor
+    this._super(me.Renderable, 'init', [x, y, 10, 10]);
+    
+        // create a font
+        this.font = new me.Font("Arial", 32, "#EE0000");
+        this.font.textAlign = "center";
+        // give a name
+        this.name = name;
+        this.pos.x = x;
+        this.pos.y = y;
+        this.time = time;
+        this.time_remain = time;
+        this.countdown = countdown;
+        this.start_time = me.timer.getTime();
+    },
+    draw: function(ctx)
+    {
+        var context = ctx.getContext();
+        this.font.draw(ctx, this.value, this.pos.x, this.pos.y);
+    },
+    convert: function(time_remain)
+    {
+        var x = parseInt(time_remain / 1000);
+        var seconds = x % 60;
+        x /= 60;
+        var minutes = x % 60;
+    
+        var seconds_num = minutes * 60 + seconds;
+        if (seconds_num > 0) {
+            return Math.floor(minutes) + ":" + Math.floor(seconds);
+        }
+        else {
+            return "0:0";
+        }
+    },
+    update: function(dt)
+    {
+        var time_remain = this.time - (me.timer.getTime()) + this.start_time;
+        this.time_remain = time_remain;
+    
+        if (time_remain < 0) {
+        }
+        else {
+            this.value = this.convert(time_remain);
+        }
+    }
+});
 game.HUD.Container = me.Container.extend({
     init: function() {
         this._super(me.Container, 'init');
