@@ -40,7 +40,7 @@ game.GameOverScreen = me.ScreenObject.extend({
             {image: 'gameoverbg'}
         );
         me.game.world.addChild(gameOverBG, 10);
-
+        me.game.world.addChild(new BackgroundColor('grey', '#4c4b57', 2));
         me.game.world.addChild(new BackgroundLayer('bg', 1));
 
         // ground

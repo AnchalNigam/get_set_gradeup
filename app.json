@@ -1,8 +1,7 @@
 {
-  "name": "Clumsy Bird",
-  "description": "MelonJS Flapppy Bird Clone",
-  "repository": "https://github.com/ellisonleao/clumsy-bird",
-  "logo": "https://raw.githubusercontent.com/ellisonleao/clumsy-bird/gh-pages/data/img/touch-icon-iphone.png",
+  "name": "Get Set Rocket",
+  "description": "MelonJS Clumsy Bird Clone",
+  "repository": "https://github.com/CrazyMarchBorn/pocketMaiRocket",
   "keywords": ["grunt", "melonjs", "games"]
 }
 

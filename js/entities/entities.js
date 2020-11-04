@@ -2,20 +2,20 @@ game.BirdEntity = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
         settings.image = 'clumsy';
-        settings.width = 85;
-        settings.height = 60;
+        settings.width = 120;
+        settings.height = 90;
 
         this._super(me.Entity, 'init', [x, y, settings]);
         this.alwaysUpdate = true;
         this.body.gravity = 0.2;
         this.maxAngleRotation = Number.prototype.degToRad(-30);
         this.maxAngleRotationDown = Number.prototype.degToRad(35);
-        this.renderable.addAnimation("flying", [0, 1, 2]);
-        this.renderable.addAnimation("idle", [0]);
-        this.renderable.setCurrentAnimation("flying");
+        // this.renderable.addAnimation("flying", [0, 1, 2]);
+        // this.renderable.addAnimation("idle", [0]);
+        // this.renderable.setCurrentAnimation("flying");
         //this.renderable.anchorPoint = new me.Vector2d(0.1, 0.5);
         this.body.removeShapeAt(0);
-        this.body.addShape(new me.Ellipse(5, 5, 71, 51));
+        this.body.addShape(new me.Ellipse(5, 5, 70, 50));
 
         // a tween object for the flying physic effect
         this.flyTween = new me.Tween(this.pos);
@@ -83,7 +83,7 @@ game.BirdEntity = me.Entity.extend({
 
     onCollision: function(response) {
         var obj = response.b;
-        if (obj.type === 'pipe' || obj.type === 'ground') {
+        if (obj.type === 'obstacle' || obj.type === 'ground') {
             me.device.vibrate(500);
             this.collided = true;
         }
@@ -130,7 +130,7 @@ game.PipeEntity = me.Entity.extend({
         this.alwaysUpdate = true;
         this.body.gravity = 0;
         this.body.vel.set(-5, 0);
-        this.type = 'pipe';
+        this.type = 'obstacle';
     },
 
     update: function(dt) {
@@ -180,6 +180,85 @@ game.PipeGenerator = me.Renderable.extend({
 
 });
 
+game.ObstacleEntity = me.Entity.extend({
+    init: function(x, y, up, decY) {
+        const settings = {};
+        decY = decY ? decY : 0;
+        settings.width = 224;
+        settings.height= 303 - decY;
+        settings.framewidth = 224;
+        settings.frameheight = 303 - decY;
+        if (up) {
+            settings.image = this.image = me.loader.getImage('pencil');
+            y = y - settings.height;
+        }
+        settings.image = this.image = me.loader.getImage('pencil');
+        console.log('Obstacle Entity', 'x', x, 'y', y);
+        this._super(me.Entity, 'init', [x, y, settings]);
+        this.alwaysUpdate = true;
+        this.body.gravity = 0;
+        this.body.vel.set(-5, 0);
+        this.type = 'obstacle';
+    },
+
+    update: function(dt) {
+        // mechanics
+        if (!game.data.start) {
+            return this._super(me.Entity, 'update', [dt]);
+        }
+        this.pos.add(this.body.vel);
+        if (this.pos.x < -this.image.width) {
+            me.game.world.removeChild(this);
+        }
+        me.Rect.prototype.updateBounds.apply(this);
+        this._super(me.Entity, 'update', [dt]);
+        return true;
+    },
+
+});
+
+game.ObstacleGenerator = me.Renderable.extend({
+    init: function() {
+        console.log('viewport width', me.game.viewport.width, 'viewport heigh', me.game.viewport.height);
+        this._super(me.Renderable, 'init', [0, me.game.viewport.width, me.game.viewport.height, 92]);
+        this.alwaysUpdate = true;
+        this.frequency = 164;
+        this.up = 0;
+        this.down = this.frequency / 2;
+        this.pipeHoleSize = 1240;
+        this.posX = me.game.viewport.width;
+    },
+
+    update: function(dt) {
+        // up
+        console.log('this.up', this.up);
+        if (this.up++ % this.frequency === 0) {
+            var changeHeight = Number.prototype.random(0, 100);
+            var posY = me.game.viewport.height - 96;
+            var pipe1 = new me.pool.pull('obstacle', this.posX, posY, true);
+            var hitPos = posY - 100;
+            var hit = new me.pool.pull("hit", this.posX, hitPos);
+            me.game.world.addChild(pipe1, 10);
+            me.game.world.addChild(hit, 11);
+        }
+        // down
+        console.log('this.down', this.down);
+        if (this.down++ % this.frequency == 0) {
+            var changeHeight = Number.prototype.random(0, 100);
+            var posY = 0;
+            var pipe2 = new me.pool.pull('obstacle', this.posX, posY, false);
+            var hitPos = posY - 100;
+            var hit = new me.pool.pull("hit", this.posX, hitPos);
+            me.game.world.addChild(pipe2, 10);
+            me.game.world.addChild(hit, 11);
+        }
+
+        this._super(me.Entity, "update", [dt]);
+    },
+
+});
+
+
 game.HitEntity = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
@@ -217,7 +296,7 @@ game.Ground = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
         settings.image = me.loader.getImage('ground');
-        settings.width = 900;
+        settings.width = 910;
         settings.height= 96;
         this._super(me.Entity, 'init', [x, y, settings]);
         this.alwaysUpdate = true;
@@ -228,12 +307,25 @@ game.Ground = me.Entity.extend({
 
     update: function(dt) {
         // mechanics
-        this.pos.add(this.body.vel);
-        if (this.pos.x < -this.renderable.width) {
-            this.pos.x = me.video.renderer.getWidth() - 10;
-        }
-        me.Rect.prototype.updateBounds.apply(this);
-        return this._super(me.Entity, 'update', [dt]);
+        // this.pos.add(this.body.vel);
+        // if (this.pos.x < -this.renderable.width) {
+        //     this.pos.x = me.video.renderer.getWidth() - 10;
+        // }
+        // me.Rect.prototype.updateBounds.apply(this);
+        // return this._super(me.Entity, 'update', [dt]);
+        return true;
     },
 
+});
+
+game.CoinEntity = me.CollectableEntity.extend({
+    init: function(x,y,settings){
+        settings.image = me.loader.getImage('coin');;
+        settings.spritewidth = 32;
+        this.parent(x,y,settings);
+    },
+    onCollision: function(){
+        this.collidable = false;
+        me.game.remove(this);
+    }
 });

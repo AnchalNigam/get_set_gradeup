@@ -19,7 +19,7 @@ game.PlayScreen = me.ScreenObject.extend({
         game.data.steps = 0;
         game.data.start = false;
         game.data.newHiscore = false;
-
+        me.game.world.addChild(new BackgroundColor('grey', '#4c4b57', 2));
         me.game.world.addChild(new BackgroundLayer('bg', 1));
 
         this.ground1 = me.pool.pull('ground', 0, me.game.viewport.height - 96);
@@ -49,7 +49,7 @@ game.PlayScreen = me.ScreenObject.extend({
             .easing(me.Tween.Easing.Linear.None)
             .onComplete(function() {
                 game.data.start = true;
-                me.game.world.addChild(new game.PipeGenerator(), 0);
+                me.game.world.addChild(new game.ObstacleGenerator(), 0);
                 me.game.world.removeChild(that.getReady);
             }).start();
     },

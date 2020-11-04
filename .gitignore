@@ -10,6 +10,7 @@ npm-debug.log
 
 # project specific ignore
 node_modules/
+build/
 
 # Vim swap files
 *.sw*

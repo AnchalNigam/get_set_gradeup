@@ -4,16 +4,19 @@ var game = {
         steps: 0,
         start: false,
         newHiScore: false,
-        muted: false
+        muted: true
     },
 
     resources: [
             // images
-        {name: "bg", type:"image", src: "data/img/bg.png"},
-        {name: "clumsy", type:"image", src: "data/img/clumsy.png"},
+        {name: "bg", type:"image", src: "data/new_img/bg.png"},
+        {name: "clumsy", type:"image", src: "data/new_img/rocket.png"},
+        {name: "pencil", type:"image", src: "data/new_img/obstacle_pencil.png"},
+        {name: "pinkhook", type:"image", src: "data/new_img/pink_hook.png"},
+        {name: "coin", type:"image", src: "data/new_img/spinning_coin_gold.png"},
         {name: "pipe", type:"image", src: "data/img/pipe.png"},
         {name: "logo", type:"image", src: "data/img/logo.png"},
-        {name: "ground", type:"image", src: "data/img/ground.png"},
+        {name: "ground", type:"image", src: "data/new_img/ground.png"},
         {name: "gameover", type:"image", src: "data/img/gameover.png"},
         {name: "gameoverbg", type:"image", src: "data/img/gameoverbg.png"},
         {name: "hit", type:"image", src: "data/img/hit.png"},
@@ -53,8 +56,10 @@ var game = {
 
         me.pool.register("clumsy", game.BirdEntity);
         me.pool.register("pipe", game.PipeEntity, true);
+        me.pool.register("obstacle", game.ObstacleEntity, true);
         me.pool.register("hit", game.HitEntity, true);
         me.pool.register("ground", game.Ground, true);
+        me.pool.register("coin", game.CoinEntity, true);
 
         me.state.change(me.state.MENU);
     }

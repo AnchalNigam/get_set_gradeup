@@ -10,7 +10,7 @@ game.TitleScreen = me.ScreenObject.extend({
     onResetEvent: function() {
         me.audio.stop("theme");
         game.data.newHiScore = false;
-
+        me.game.world.addChild(new BackgroundColor('grey', '#4c4b57', 2));
         me.game.world.addChild(new BackgroundLayer('bg', 1));
         me.input.bindKey(me.input.KEY.ENTER, "enter", true);
         me.input.bindKey(me.input.KEY.SPACE, "enter", true);
@@ -48,7 +48,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 // renderable
                 this._super(me.Renderable, 'init', [0, 0, 100, 100]);
                 this.text = me.device.touch ? 'Tap to start' : 'PRESS SPACE OR CLICK LEFT MOUSE BUTTON TO START \n\t\t\t\t\t\t\t\t\t\t\tPRESS "M" TO MUTE SOUND';
-                this.font = new me.Font('gamefont', 20, '#000');
+                this.font = new me.Font('gamefont', 20, '#ffff');
             },
             draw: function (renderer) {
                 var measure = this.font.measureText(renderer, this.text);

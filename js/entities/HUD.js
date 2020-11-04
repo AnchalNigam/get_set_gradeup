@@ -26,7 +26,7 @@ game.HUD.ScoreItem = me.Renderable.extend({
         this._super(me.Renderable, "init", [x, y, 10, 10]);
 
         // local copy of the global score
-        this.stepsFont = new me.Font('gamefont', 80, '#000', 'center');
+        this.stepsFont = new me.Font('gamefont', 80, '#ffff', 'center');
 
         // make sure we use screen coordinates
         this.floating = true;
@@ -39,8 +39,25 @@ game.HUD.ScoreItem = me.Renderable.extend({
 
 });
 
+
+var BackgroundColor = me.ColorLayer.extend({
+    init: function(name, color, z) {
+        name = name ? name : 'default';
+        color = color ? color : '#4c4b57';
+        z = z ? z : 2;
+
+        this._super(me.ColorLayer, 'init', [name, color, z]);
+    },
+
+    update: function() {
+        return true;
+    }
+});
+
 var BackgroundLayer = me.ImageLayer.extend({
-    init: function(image, z, speed) {
+    init: function(image, z, x, y) {
+        x = x ? x : 0;
+        y = y ? y : -100;
         var settings = {};
         settings.name = image;
         settings.width = 900;
@@ -49,7 +66,8 @@ var BackgroundLayer = me.ImageLayer.extend({
         settings.z = z;
         settings.ratio = 1;
         // call parent constructor
-        this._super(me.ImageLayer, 'init', [0, 0, settings]);
+
+        this._super(me.ImageLayer, 'init', [x, y, settings]);
     },
 
     update: function() {
