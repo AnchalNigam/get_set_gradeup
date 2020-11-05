@@ -11,11 +11,11 @@ game.HUD.TimerManager = me.Entity.extend(
     // call the super constructor
     this._super(me.Entity, 'init', [0, 0, settings]);
     this.complete = false;
-    
+
                 // 5 minutes in milliseconds, count down to true
                 var time = ((game.data.level - 1) * 5*1000) + 18*1000;
                 console.log(time, game.data.level, 'jj')
-                this.timer = new game.HUD.TimerItem(time, true, 50, 50, "timer");
+                this.timer = new game.HUD.TimerItem(time, true, me.game.viewport.width-100, 50, "timer");
                 me.game.world.addChild(this.timer);
             },
             update: function()
@@ -29,7 +29,7 @@ game.HUD.TimerItem = me.Renderable.extend({
     this._super(me.Renderable, 'init', [x, y, 10, 10]);
     
         // create a font
-        this.font = new me.Font("Arial", 32, "#EE0000");
+        this.font = new me.Font('gamefont', 50, "#FFFF00");
         this.font.textAlign = "center";
         // give a name
         this.name = name;
@@ -113,6 +113,38 @@ game.HUD.ScoreItem = me.Renderable.extend({
     }
 
 });
+
+game.HUD.Coins = me.Renderable.extend({
+    init: function(x, y) {
+        this._super(me.Renderable, "init", [30, 60, 10, 10]);
+
+        // local copy of the global score
+        this.stepsFont = new me.Font('Arial', 30, '#ffff');
+    },
+
+    draw: function (renderer) {
+        if (game.data.start && me.state.isCurrent(me.state.PLAY))
+            this.stepsFont.draw(renderer, 'Coins Earned:' + (game.data.level-1)*100, 30, 60);
+    }
+
+});
+
+
+game.HUD.Levels = me.Renderable.extend({
+    init: function(x, y) {
+        this._super(me.Renderable, "init", [30, 20, 10, 10]);
+
+        // local copy of the global score
+        this.stepsFont = new me.Font('Arial', 30, '#ffff');
+    },
+
+    draw: function (renderer) {
+        if (game.data.start && me.state.isCurrent(me.state.PLAY))
+            this.stepsFont.draw(renderer, 'Level:' + game.data.level, 30, 20);
+    }
+
+});
+
 
 
 var BackgroundColor = me.ColorLayer.extend({
