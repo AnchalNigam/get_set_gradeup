@@ -109,7 +109,7 @@ game.PlayScreen = me.ScreenObject.extend({
             .easing(me.Tween.Easing.Linear.None)
             .onComplete(function() {
                 game.data.start = true;
-                me.game.world.addChild(new game.ObstacleGenerator(), 0);
+                me.game.world.addChild(new game.PipeGenerator(), 0);
                 me.game.world.removeChild(that.getReady);
             }).start();
         me.game.world.addChild(this.HUD2, 11);
