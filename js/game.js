@@ -28,6 +28,7 @@ var game = {
         {name: "pencil", type:"image", src: "data/new_img/obstacle_pencil.png"},
         {name: "pinkhook", type:"image", src: "data/new_img/pink_hook.png"},
         {name: "coin", type:"image", src: "data/new_img/spinning_coin_gold.png"},
+        {name: "pencil-pipe", type:"image", src: "data/new_img/Group-13.png"},
         {name: "pipe", type:"image", src: "data/img/pipe.png"},
         {name: "logo", type:"image", src: "data/img/logo.png"},
         {name: "ground", type:"image", src: "data/new_img/ground.png"},
@@ -50,7 +51,7 @@ var game = {
         if (!me.video.init(900, 600, {
             wrapper: "screen",
             scale : "auto",
-            scaleMethod: "fit"
+            scaleMethod: "flex-width"
         })) {
             alert("Your browser does not support HTML5 canvas.");
             return;
