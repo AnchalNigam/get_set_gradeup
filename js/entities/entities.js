@@ -7,15 +7,15 @@ game.BirdEntity = me.Entity.extend({
 
         this._super(me.Entity, 'init', [x, y, settings]);
         this.alwaysUpdate = true;
-        this.body.gravity = 0.2;
-        this.maxAngleRotation = Number.prototype.degToRad(-30);
-        this.maxAngleRotationDown = Number.prototype.degToRad(35);
+        this.body.gravity = 0.12;
+        this.maxAngleRotation = Number.prototype.degToRad(-20);
+        this.maxAngleRotationDown = Number.prototype.degToRad(25);
         // this.renderable.addAnimation("flying", [0, 1, 2]);
         // this.renderable.addAnimation("idle", [0]);
         // this.renderable.setCurrentAnimation("flying");
         //this.renderable.anchorPoint = new me.Vector2d(0.1, 0.5);
         this.body.removeShapeAt(0);
-        this.body.addShape(new me.Ellipse(5, 5, 70, 50));
+        this.body.addShape(new me.Ellipse(5, 5, 60, 40));
 
         // a tween object for the flying physic effect
         this.flyTween = new me.Tween(this.pos);
