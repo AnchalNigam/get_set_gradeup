@@ -1,10 +1,24 @@
+
+function getLevel() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const isRefresh = urlParams.get('refresh');
+    const level = urlParams.get('level');
+    if(isRefresh === 'true') {
+        return 1;
+    } else if(level) {
+        return level;
+    }
+    return 1;
+}
 var game = {
     data: {
         score : 0,
         steps: 0,
         start: false,
         newHiScore: false,
-        muted: true
+        muted: true,
+        level: getLevel(),
     },
 
     resources: [

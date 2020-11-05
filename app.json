@@ -1,7 +1,6 @@
 {
   "name": "Get Set Rocket",
-  "description": "MelonJS Clumsy Bird Clone",
-  "repository": "https://github.com/CrazyMarchBorn/pocketMaiRocket",
+  "description": "Get Set Gradeup",
+  "repository": "https://github.com/AnchalNigam/get_set_gradeup",
   "keywords": ["grunt", "melonjs", "games"]
 }
-

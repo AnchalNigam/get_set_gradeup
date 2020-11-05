@@ -13,7 +13,9 @@ game.HUD.TimerManager = me.Entity.extend(
     this.complete = false;
     
                 // 5 minutes in milliseconds, count down to true
-                this.timer = new game.HUD.TimerItem(60 * 1000, true, 50, 50, "timer");
+                var time = ((game.data.level - 1) * 5*1000) + 18*1000;
+                console.log(time, game.data.level, 'jj')
+                this.timer = new game.HUD.TimerItem(time, true, 50, 50, "timer");
                 me.game.world.addChild(this.timer);
             },
             update: function()
@@ -41,7 +43,9 @@ game.HUD.TimerItem = me.Renderable.extend({
     draw: function(ctx)
     {
         var context = ctx.getContext();
-        this.font.draw(ctx, this.value, this.pos.x, this.pos.y);
+        if (game.data.start && me.state.isCurrent(me.state.PLAY)) {
+            this.font.draw(ctx, this.value, this.pos.x, this.pos.y);
+        }
     },
     convert: function(time_remain)
     {
@@ -55,6 +59,7 @@ game.HUD.TimerItem = me.Renderable.extend({
             return Math.floor(minutes) + ":" + Math.floor(seconds);
         }
         else {
+            Android.gameLevelCompleted(game.data.level, 200);
             return "0:0";
         }
     },
