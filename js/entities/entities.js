@@ -86,7 +86,7 @@ game.RocketEntity = me.Entity.extend({
         var objA = response.a;
 
         var _bounds = objB.getBounds();
-        var _boundsA = objB.getBounds();
+        var _boundsA = objA.getBounds();
 
 
         console.log(objB.type, 'onCollision - B', _bounds)
@@ -299,10 +299,10 @@ game.HitEntity = me.Entity.extend({
 });
 
 game.Ground = me.Entity.extend({
-    init: function(x, y) {
+    init: function(x, y, ground_width) {
         var settings = {};
         settings.image = me.loader.getImage('ground');
-        settings.width = me.game.viewport.width;
+        settings.width = ground_width;
         settings.height= 96;
         // initiate
         this._super(me.Entity, 'init', [x, y, settings]);
@@ -319,8 +319,6 @@ game.Ground = me.Entity.extend({
         if (this.pos.x < -this.renderable.width) {
             this.pos.x = me.video.renderer.getWidth() - 10;
         }
-        // me.Rect.prototype.updateBounds.apply(this);
-        // return this._super(me.Entity, 'update', [dt]);
         return true;
     },
 
@@ -328,8 +326,9 @@ game.Ground = me.Entity.extend({
 
 var TheGround = me.Object.extend({
 init: function() {
-    this.ground1 = me.pool.pull('ground', 0, me.video.renderer.getHeight() - 96);
-    this.ground2 = me.pool.pull('ground', me.video.renderer.getWidth(), me.video.renderer.getHeight() - 96);
+    const video_width = me.video.renderer.getWidth();
+    this.ground1 = me.pool.pull('ground', 0, me.video.renderer.getHeight() - 96, video_width);
+    this.ground2 = me.pool.pull('ground', me.video.renderer.getWidth(), me.video.renderer.getHeight() - 96, video_width);
     me.game.world.addChild(this.ground1, 11);
     me.game.world.addChild(this.ground2, 11);
 },
