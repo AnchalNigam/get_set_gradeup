@@ -62,7 +62,7 @@ game.HUD.TimerItem = me.Renderable.extend({
         else {
             if(!game.data.levelCompletedCallback) {
                 me.audio.play("swoosh");
-                var coinsEarn = Number(game.data.coins) + Number(game.data.steps);
+                var coinsEarn = Number(game.data.coins) + Number(game.data.steps) + 100;
                 Android.gameLevelCompleted(game.data.level, coinsEarn);
                 game.data.levelCompletedCallback = true;
                 return "0:0";
