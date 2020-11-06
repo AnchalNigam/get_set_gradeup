@@ -61,7 +61,7 @@ game.HUD.TimerItem = me.Renderable.extend({
         }
         else {
             if(!game.data.levelCompletedCallback) {
-                Android.gameLevelCompleted(game.data.level, (game.data.level-1)*100);
+                Android.gameLevelCompleted(game.data.level, game.data.level*100);
                 game.data.levelCompletedCallback = true;
                 return "0:0";
             }
