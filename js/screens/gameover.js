@@ -99,8 +99,7 @@ game.GameOverScreen = me.ScreenObject.extend({
         me.input.unbindKey(me.input.KEY.ENTER);
         me.input.unbindKey(me.input.KEY.SPACE);
         me.input.unbindPointer(me.input.pointer.LEFT);
-        this.ground1 = null;
-        this.ground2 = null;
+        me.game.world.removeChild(this.ground);
         this.font = null;
         me.audio.stop("theme");
     }

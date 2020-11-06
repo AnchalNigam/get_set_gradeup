@@ -1,7 +1,5 @@
 { 
-    
     "rocket": [
-        
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
@@ -35,7 +33,6 @@
     ]
     , 
     "pencil-long": [
-        
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
@@ -49,15 +46,56 @@
     ]
     , 
     "ground": [
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   1, -0.5  ,  1502, -0.5  ,  1505.5, 39  ,  0, 47.5  ]
+        }
+    ]
+    , 
+    "pink_hook": [
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   205.5, 486  ,  205.5, 606  ,  175, 642.5  ,  155.5, 564  ,  157.5, 474  ,  192, 460.5  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   175, 642.5  ,  138.5, 589  ,  155.5, 564  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   35, 642.5  ,  5.5, 616  ,  89, 593.5  ,  138.5, 589  ,  175, 642.5  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   61.5, 565  ,  5.5, 616  ,  1, -0.5  ,  2, -0.5  ,  60.5, 5  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   5.5, 616  ,  61.5, 565  ,  89, 593.5  ]
+        }
+    ]
+    , 
+    "coin-sprite": [
         
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   900, 96  ,  0, 96  ,  0, 0  ,  900, 0  ]
+            "shape": [   231, 1725  ,  268, 844  ,  927, 262  ,  1713, 295  ,  2282, 838  ,  2325, 1719  ,  1720, 2358  ,  842, 2362  ]
         }
     ]
     , 
-    "ground (2)": [
+    "pencil-withbooks": [
         
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   25.5, 556  ,  26.5, 66  ,  74, 4.5  ,  75, 4.5  ,  125.5, 66  ,  125.5, 566  ,  106, 585.5  ,  36, 583.5  ]
+        }
     ]
 }

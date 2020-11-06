@@ -121,8 +121,7 @@ game.PlayScreen = me.ScreenObject.extend({
         // free the stored instance
         this.HUD = null;
         this.bird = null;
-        this.ground1 = null;
-        this.ground2 = null;
+        me.game.world.removeChild(this.ground);
         me.input.unbindKey(me.input.KEY.SPACE);
         me.input.unbindPointer(me.input.pointer.LEFT);
     }

@@ -5,7 +5,7 @@ game.RocketEntity = me.Entity.extend({
         settings.width = 120;
         settings.height = 90;
 
-        this._super(me.Entity, 'init', [x, y, settings]);
+        this._super(me.Entity, 'init', [200, y, settings]);
 
         this.body.removeShapeAt(0);
         this.body.addShapesFromJSON(me.loader.getJSON("shapes"), "rocket");
@@ -15,6 +15,7 @@ game.RocketEntity = me.Entity.extend({
 
         this.alwaysUpdate = true;
         this.body.gravity = 0.1;
+        this.body.collisionType = me.collision.types.PLAYER_OBJECT;
         this.maxAngleRotation = Number.prototype.degToRad(15);
         this.maxAngleRotationDown = Number.prototype.degToRad(30);
         
@@ -36,8 +37,9 @@ game.RocketEntity = me.Entity.extend({
     },
 
     update: function(dt) {
+        console.log('player update')
         var that = this;
-        this.pos.x = 60;
+        this.pos.x = this.pos.x > 60 ? this.pos.x - me.timer.tick * 0.05 : 60;
         if (!game.data.start) {
             return this._super(me.Entity, 'update', [dt]);
         }
@@ -83,16 +85,12 @@ game.RocketEntity = me.Entity.extend({
 
     onCollision: function(response) {
         var objB = response.b;
-
         if ((objB.type === 'obstacle' || objB.type === 'ground')) {
             me.device.vibrate(500);
             this.collided = true;
-        }
-        // remove the hit box
-        if (objB.type === 'hit') {
+        } else if (objB.type === 'hit') {
+            objB.body.setCollisionMask(me.collision.types.NO_OBJECT);
             me.game.world.removeChild(objB);
-            game.data.steps++;
-            me.audio.play('hit');
         }
     },
 
@@ -202,6 +200,7 @@ game.ObstacleEntity = me.Entity.extend({
         me.Polygon.prototype.updateBounds.apply(this);
 
         this.alwaysUpdate = true;
+        this.body.collisionType = me.collision.types.ENEMY_OBJECT;
         this.body.gravity = 0;
         this.body.vel.set(-5, 0);
         this.type = 'obstacle';
@@ -221,7 +220,6 @@ game.ObstacleEntity = me.Entity.extend({
         return true;
     },
 });
-
 
 game.ObstacleGenerator = me.Renderable.extend({
     init: function() {
@@ -258,34 +256,50 @@ game.ObstacleGenerator = me.Renderable.extend({
 game.HitEntity = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
-        settings.image = this.image = me.loader.getImage('hit');
-        settings.width = 148;
-        settings.height= 60;
-        settings.framewidth = 148;
-        settings.frameheight = 60;
+        settings.image = this.image = me.loader.getImage('coin');
+        console.log('image', this.image.width)
+        settings.width = 85;
+        settings.height= 85;
+        settings.spritewidth = 85;
+        settings.spriteheight= 85;
 
         this._super(me.Entity, 'init', [x, y, settings]);
+
         this.alwaysUpdate = true;
-        this.body.gravity = 0;
         this.updateTime = false;
-        this.renderable.alpha = 0;
+        this.body.collisionType = me.collision.types.COLLECTABLE_OBJECT;
+        this.body.gravity = 0;
         this.body.accel.set(-5, 0);
-        this.body.removeShapeAt(0);
-        this.body.addShape(new me.Rect(0, 0, settings.width - 30, settings.height - 30));
+        this.collected = false
         this.type = 'hit';
     },
 
     update: function(dt) {
-        // mechanics
-        this.pos.add(this.body.accel);
-        if (this.pos.x < -this.image.width) {
-            me.game.world.removeChild(this);
+        if (game.data.start && !this.collected) {
+            console.log('hit update', this.collected);
+            // mechanics
+            this.pos.add(this.body.accel);
+            if (this.pos.x < -this.image.width) {
+                me.game.world.removeChild(this);
+            }
+            this.body.updateBounds();
+            this._super(me.Entity, "update", [dt]);
         }
-        me.Rect.prototype.updateBounds.apply(this);
-        this._super(me.Entity, "update", [dt]);
         return true;
     },
 
+    onCollision: function(){
+        if(!this.collected){
+            console.log('hit onCollision', this.collected);
+            this.body.setCollisionMask(me.collision.types.NO_OBJECT);
+            me.game.world.removeChild(this);
+            game.data.steps++;
+            me.audio.play('hit');
+            this.collected = true;
+            return true;
+        }
+        return false;
+    }
 });
 
 game.Ground = me.Entity.extend({
@@ -325,18 +339,4 @@ init: function() {
 },
 
 update: function () { return true; }
-})
-
-
-
-game.CoinEntity = me.CollectableEntity.extend({
-    init: function(x,y,settings){
-        settings.image = me.loader.getImage('coin');;
-        settings.spritewidth = 32;
-        this.parent(x,y,settings);
-    },
-    onCollision: function(){
-        this.collidable = false;
-        me.game.remove(this);
-    }
 });

@@ -165,7 +165,7 @@ var BackgroundColor = me.ColorLayer.extend({
 var BackgroundLayer = me.ImageLayer.extend({
     init: function(image, z, x, y) {
         x = x ? x : 0;
-        y = y ? y : -100;
+        y = y ? y : -45;
         var settings = {};
         settings.name = image;
         settings.width = 900;
