@@ -21,6 +21,56 @@ game.TitleScreen = me.ScreenObject.extend({
                 me.state.change(me.state.PLAY);
             }
         });
+        me.game.world.addChild(new (me.Renderable.extend ({
+            // constructor
+            init: function() {
+                // size does not matter, it's just to avoid having a zero size
+                // renderable
+                this._super(me.Renderable, 'init', [0, 0, 100, 100]);
+                this.text = 'Get Set Gradeup';
+                this.font = new me.Font('gamefont', 35, '#FFFF00');
+            },
+            draw: function (renderer) {
+                var measure = this.font.measureText(renderer, this.text);
+                var xpos = me.game.viewport.width/2 - measure.width/2;
+                var ypos = 20;
+                this.font.draw(renderer, this.text, xpos, ypos);
+            }
+        })), 12);
+
+        me.game.world.addChild(new (me.Renderable.extend ({
+            // constructor
+            init: function() {
+                // size does not matter, it's just to avoid having a zero size
+                // renderable
+                this._super(me.Renderable, 'init', [0, 0, 100, 100]);
+                this.text = 'Level : ' + game.data.level;
+                this.font = new me.Font('Arial', 30, '#50b167');
+            },
+            draw: function (renderer) {
+                var measure = this.font.measureText(renderer, this.text);
+                var xpos = me.game.viewport.width/2 -measure.width/2;
+                var ypos = me.game.viewport.height/2 + 100;
+                this.font.draw(renderer, this.text, xpos, ypos);
+            }
+        })), 12);
+
+        me.game.world.addChild(new (me.Renderable.extend ({
+            // constructor
+            init: function() {
+                // size does not matter, it's just to avoid having a zero size
+                // renderable
+                this._super(me.Renderable, 'init', [0, 0, 100, 100]);
+                this.text = 'Coins Earned : ' + (game.data.level-1)*100;
+                this.font = new me.Font('Arial', 30, '#50b167');
+            },
+            draw: function (renderer) {
+                var measure = this.font.measureText(renderer, this.text);
+                var xpos = me.game.viewport.width/2 -measure.width/2;
+                var ypos = me.game.viewport.height/2 + 140;
+                this.font.draw(renderer, this.text, xpos, ypos);
+            }
+        })), 12);
 
         //logo
         this.logo = new me.Sprite(
@@ -45,7 +95,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 // renderable
                 this._super(me.Renderable, 'init', [0, 0, 100, 100]);
                 this.text = me.device.touch ? 'Tap to start' : 'PRESS SPACE OR CLICK LEFT MOUSE BUTTON TO START \n\t\t\t\t\t\t\t\t\t\t\tPRESS "M" TO MUTE SOUND';
-                this.font = new me.Font('gamefont', 20, '#ffff');
+                this.font = new me.Font('gamefont', 25, '#ffff');
             },
             draw: function (renderer) {
                 var measure = this.font.measureText(renderer, this.text);

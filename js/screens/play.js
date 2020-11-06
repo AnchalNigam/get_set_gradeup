@@ -88,10 +88,12 @@ game.PlayScreen = me.ScreenObject.extend({
         this.HUD2 = new game.HUD.TimerManager();
         this.HUD4 = new game.HUD.Levels();
         this.HUD3 = new game.HUD.Coins();
+        this.HUD5 = new game.HUD.TimeLeft();
         me.game.world.addChild(this.HUD2, 11);
         // me.game.world.addChild(this.HUD, 11);
         me.game.world.addChild(this.HUD4, 11);
         me.game.world.addChild(this.HUD3, 11);
+        me.game.world.addChild(this.HUD5, 11);
         this.bird = me.pool.pull("rocket", 60, me.game.viewport.height/2 - 100);
         me.game.world.addChild(this.bird, 10);
 
