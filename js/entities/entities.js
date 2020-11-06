@@ -5,7 +5,7 @@ game.RocketEntity = me.Entity.extend({
         settings.width = 120;
         settings.height = 90;
 
-        this._super(me.Entity, 'init', [200, y, settings]);
+        this._super(me.Entity, 'init', [400, y, settings]);
 
         this.body.removeShapeAt(0);
         this.body.addShapesFromJSON(me.loader.getJSON("shapes"), "rocket");
@@ -39,7 +39,7 @@ game.RocketEntity = me.Entity.extend({
     update: function(dt) {
         console.log('player update', this.pos, me.timer.tick);
         var that = this;
-        this.pos.x = this.pos.x > 60 ? this.pos.x - me.timer.tick * 0.05 : 60;
+        this.pos.x = this.pos.x > 60 ? this.pos.x - me.timer.tick * 0.2 : 60;
         if (!game.data.start) {
             return this._super(me.Entity, 'update', [dt]);
         }
@@ -245,6 +245,7 @@ game.ObstacleGenerator = me.Renderable.extend({
             // var pipe2 = new me.pool.pull('obstacle', this.posX, posY2);
             var hitPos = posY - 100;
             var hit = new me.pool.pull("hit", this.posX, hitPos);
+            hit.renderable.currentTransform.scale(0.6);
             pipe2.renderable.currentTransform.scaleY(-1);
             me.game.world.addChild(pipe1, 10);
             me.game.world.addChild(pipe2, 10);
