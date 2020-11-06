@@ -119,78 +119,6 @@ game.RocketEntity = me.Entity.extend({
 
 });
 
-game.PipeEntity = me.Entity.extend({
-    init: function(x, y) {
-        var settings = {};
-        settings.image = this.image = me.loader.getImage('pipe');
-        settings.width = 148;
-        settings.height= 1664;
-        settings.framewidth = 148;
-        settings.frameheight = 1664;
-
-        this._super(me.Entity, 'init', [x, y, settings]);
-        this.alwaysUpdate = true;
-        this.body.gravity = 0;
-        this.body.vel.set(-5, 0);
-        this.type = 'obstacle';
-    },
-
-    update: function(dt) {
-        // mechanics
-        if (!game.data.start) {
-            return this._super(me.Entity, 'update', [dt]);
-        }
-        this.pos.add(this.body.vel);
-        if (this.pos.x < -this.image.width) {
-            me.game.world.removeChild(this);
-        }
-        me.Rect.prototype.updateBounds.apply(this);
-        this._super(me.Entity, 'update', [dt]);
-        return true;
-    },
-});
-
-game.PipeGenerator = me.Renderable.extend({
-    init: function() {
-        this._super(me.Renderable, 'init', [0, me.game.viewport.width, me.game.viewport.height, 92]);
-        this.alwaysUpdate = true;
-        this.generate = 0;
-        this.pipeFrequency = 92;
-        this.pipeHoleSize = 1240;
-        this.posX = me.game.viewport.width;
-    },
-
-    update: function(dt) {
-        if (this.generate++ % this.pipeFrequency == 0) {
-            var posY = Number.prototype.random(
-                    me.video.renderer.getHeight() - 100,
-                    200
-            );
-            var posY2 = posY - me.game.viewport.height - this.pipeHoleSize;
-            var pipe1 = new me.pool.pull('pipe', this.posX, posY);
-            var pipe2 = new me.pool.pull('pipe', this.posX, posY2);
-            var hitPos = posY - 100;
-            var hit = new me.pool.pull("hit", this.posX, hitPos);
-            pipe1.renderable.currentTransform.scaleY(-1);
-            me.game.world.addChild(pipe1, 10);
-            me.game.world.addChild(pipe2, 10);
-            me.game.world.addChild(hit, 11);
-        }
-        this._super(me.Entity, "update", [dt]);
-    },
-
-});
-
-const obstacle = [
-    {
-        image: "pencil-long",
-        file: "shapes",
-        obj: "pencil-long",
-        width: 148,
-        height: 1664,
-    }
-]
-
 game.ObstacleEntity = me.Entity.extend({
     init: function(x, y, isRev, gap) {
         isRev = isRev ? isRev : false;
@@ -248,14 +176,14 @@ game.ObstacleGenerator = me.Renderable.extend({
                     me.video.renderer.getHeight() - (100 + 50),
                     250
             );
-            var pipe1 = new me.pool.pull('obstacle', this.posX, posY);   
-            var pipe2 = new me.pool.pull('obstacle', this.posX, posY, true);
+            var pipe1 = new me.pool.pull('pinkHook', this.posX, posY);   
+            var pipe2 = new me.pool.pull('pinkHook', this.posX, posY, true);
             
             // var pipe2 = new me.pool.pull('obstacle', this.posX, posY2);
             var hitPos = posY - 100;
             var hit = new me.pool.pull("hit", this.posX, hitPos);
             hit.renderable.currentTransform.scale(0.6);
-            pipe2.renderable.currentTransform.scaleY(-1);
+            pipe1.renderable.currentTransform.scaleY(-1);
             me.game.world.addChild(pipe1, 10);
             me.game.world.addChild(pipe2, 10);
             me.game.world.addChild(hit, 11);

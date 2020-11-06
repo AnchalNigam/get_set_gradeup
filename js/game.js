@@ -70,6 +70,7 @@ var game = {
 
         me.pool.register("rocket", game.RocketEntity);
         me.pool.register("pipe", game.PipeEntity, true);
+        me.pool.register("pinkHook", game.pinkHookEntity, true);
         me.pool.register("obstacle", game.ObstacleEntity, true);
         me.pool.register("hit", game.HitEntity, true);
         me.pool.register("ground", game.Ground, true);
