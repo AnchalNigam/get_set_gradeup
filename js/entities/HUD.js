@@ -15,7 +15,7 @@ game.HUD.TimerManager = me.Entity.extend(
                 // 5 minutes in milliseconds, count down to true
                 var time = ((game.data.level - 1) * 5*1000) + 18*1000;
                 console.log(time, game.data.level, 'jj')
-                this.timer = new game.HUD.TimerItem(time, true, me.game.viewport.width-100, 60, "timer");
+                this.timer = new game.HUD.TimerItem(time, true, me.game.viewport.width/2, 60, "timer");
                 me.game.world.addChild(this.timer, 100);
             },
             update: function()
@@ -61,7 +61,8 @@ game.HUD.TimerItem = me.Renderable.extend({
         }
         else {
             if(!game.data.levelCompletedCallback) {
-                Android.gameLevelCompleted(game.data.level, game.data.level*100);
+                me.audio.play("swoosh");
+                Android.gameLevelCompleted(game.data.level, game.data.coins);
                 game.data.levelCompletedCallback = true;
                 return "0:0";
             }
@@ -84,7 +85,7 @@ game.HUD.TimerItem = me.Renderable.extend({
 
 game.HUD.TimeLeft = me.Renderable.extend({
     init: function(x, y) {
-        this._super(me.Renderable, "init", [me.game.viewport.width-170, 1, 10, 10]);
+        this._super(me.Renderable, "init", [me.game.viewport.width/2, 10, 10, 10]);
 
         // local copy of the global score
         this.stepsFont = new me.Font('Georgia', 35, "#FFFF00", 'center');
@@ -92,7 +93,7 @@ game.HUD.TimeLeft = me.Renderable.extend({
 
     draw: function (renderer) {
         if (game.data.start && me.state.isCurrent(me.state.PLAY))
-            this.stepsFont.draw(renderer, 'Time Left', me.game.viewport.width-100, 20);
+            this.stepsFont.draw(renderer, 'Time Left', me.game.viewport.width/2, 10);
     }
 
 });
@@ -141,12 +142,13 @@ game.HUD.Coins = me.Renderable.extend({
         this._super(me.Renderable, "init", [30, 60, 10, 10]);
 
         // local copy of the global score
-        this.stepsFont = new me.Font('Georgia', 35, '#50b167');
+        this.stepsFont = new me.Font('Arial', 35, '#50b167');
     },
 
     draw: function (renderer) {
+        var coinsEarn = Number(game.data.coins) + Number(game.data.steps);
         if (game.data.start && me.state.isCurrent(me.state.PLAY))
-            this.stepsFont.draw(renderer, 'Coins Earned : ' + (game.data.level-1)*100, 30, 60);
+            this.stepsFont.draw(renderer, 'Coins Earned : '  + coinsEarn, 30, 60);
     }
 
 });
@@ -157,7 +159,7 @@ game.HUD.Levels = me.Renderable.extend({
         this._super(me.Renderable, "init", [30, 20, 10, 10]);
 
         // local copy of the global score
-        this.stepsFont = new me.Font('Georgia', 35, '#50b167');
+        this.stepsFont = new me.Font('Arial', 35, '#50b167');
     },
 
     draw: function (renderer) {
