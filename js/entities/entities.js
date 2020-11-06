@@ -37,13 +37,14 @@ game.RocketEntity = me.Entity.extend({
     },
 
     update: function(dt) {
-        console.log('player update')
+        console.log('player update', this.pos, me.timer.tick);
         var that = this;
         this.pos.x = this.pos.x > 60 ? this.pos.x - me.timer.tick * 0.05 : 60;
         if (!game.data.start) {
             return this._super(me.Entity, 'update', [dt]);
         }
         this.renderable.currentTransform.identity();
+
         if (me.input.isKeyPressed('fly')) {
             this.gravityForce = 0.01;
             var currentPos = this.pos.y;
@@ -88,10 +89,12 @@ game.RocketEntity = me.Entity.extend({
         if ((objB.type === 'obstacle' || objB.type === 'ground')) {
             me.device.vibrate(500);
             this.collided = true;
+            return true;
         } else if (objB.type === 'hit') {
             objB.body.setCollisionMask(me.collision.types.NO_OBJECT);
             me.game.world.removeChild(objB);
         }
+        return false
     },
 
     endAnimation: function() {
