@@ -16,7 +16,7 @@ game.HUD.TimerManager = me.Entity.extend(
                 var time = ((game.data.level - 1) * 5*1000) + 18*1000;
                 console.log(time, game.data.level, 'jj')
                 this.timer = new game.HUD.TimerItem(time, true, me.game.viewport.width-100, 50, "timer");
-                me.game.world.addChild(this.timer);
+                me.game.world.addChild(this.timer, 100);
             },
             update: function()
             {
@@ -29,8 +29,9 @@ game.HUD.TimerItem = me.Renderable.extend({
     this._super(me.Renderable, 'init', [x, y, 10, 10]);
     
         // create a font
-        this.font = new me.Font('gamefont', 50, "#FFFF00");
-        this.font.textAlign = "center";
+        this.font = new me.Font('gamefont', 50, "#FFFF00", 'center');
+
+        this.collidable = false;
         // give a name
         this.name = name;
         this.pos.x = x;
@@ -59,7 +60,7 @@ game.HUD.TimerItem = me.Renderable.extend({
             return Math.floor(minutes) + ":" + Math.floor(seconds);
         }
         else {
-            Android.gameLevelCompleted(game.data.level, 200);
+            Android.gameLevelCompleted(game.data.level, (game.data.level-1)*100);
             return "0:0";
         }
     },
