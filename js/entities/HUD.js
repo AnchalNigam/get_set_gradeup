@@ -59,7 +59,7 @@ game.HUD.TimerItem = me.Renderable.extend({
             return Math.floor(minutes) + ":" + Math.floor(seconds);
         }
         else {
-            Android.gameLevelCompleted(game.data.level, 200);
+            Android.gameLevelCompleted(game.data.level, (game.data.level-1)*100);
             return "0:0";
         }
     },
