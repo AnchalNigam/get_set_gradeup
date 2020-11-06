@@ -81,11 +81,8 @@ game.PlayScreen = me.ScreenObject.extend({
         me.game.world.addChild(new BackgroundColor('grey', '#4c4b57', 2));
         me.game.world.addChild(new BackgroundLayer('bg', 1));
 
-        this.ground1 = me.pool.pull('ground', 0, me.game.viewport.height - 96);
-        this.ground2 = me.pool.pull('ground', me.game.viewport.width,
-            me.game.viewport.height - 96);
-        me.game.world.addChild(this.ground1, 11);
-        me.game.world.addChild(this.ground2, 11);
+        this.ground = new TheGround();
+        me.game.world.addChild(this.ground, 11);
 
         this.HUD = new game.HUD.Container();
         this.HUD2 = new game.HUD.TimerManager();
@@ -94,7 +91,7 @@ game.PlayScreen = me.ScreenObject.extend({
         me.game.world.addChild(this.HUD, 11);
         me.game.world.addChild(this.HUD4, 11);
         me.game.world.addChild(this.HUD3, 11);
-        this.bird = me.pool.pull("clumsy", 60, me.game.viewport.height/2 - 100);
+        this.bird = me.pool.pull("rocket", 60, me.game.viewport.height/2 - 100);
         me.game.world.addChild(this.bird, 10);
 
         //inputs
@@ -112,7 +109,7 @@ game.PlayScreen = me.ScreenObject.extend({
             .easing(me.Tween.Easing.Linear.None)
             .onComplete(function() {
                 game.data.start = true;
-                me.game.world.addChild(new game.PipeGenerator(), 0);
+                me.game.world.addChild(new game.ObstacleGenerator(), 0);
                 me.game.world.removeChild(that.getReady);
             }).start();
         me.game.world.addChild(this.HUD2, 19);

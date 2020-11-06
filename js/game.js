@@ -17,23 +17,23 @@ var game = {
         steps: 0,
         start: false,
         newHiScore: false,
-        muted: true,
+        muted: false,
         level: getLevel(),
     },
 
     resources: [
             // images
         {name: "bg", type:"image", src: "data/new_img/bg.png"},
-        {name: "clumsy", type:"image", src: "data/new_img/rocket.png"},
+        {name: "rocket", type:"image", src: "data/new_img/rocket.png"},
         {name: "pencil", type:"image", src: "data/new_img/obstacle_pencil.png"},
         {name: "pinkhook", type:"image", src: "data/new_img/pink_hook.png"},
         {name: "coin", type:"image", src: "data/new_img/spinning_coin_gold.png"},
-        {name: "pencil-pipe", type:"image", src: "data/new_img/Group-13.png"},
+        {name: "pencil-long", type:"image", src: "data/new_img/pencil-long.png"},
         {name: "pipe", type:"image", src: "data/img/pipe.png"},
         {name: "logo", type:"image", src: "data/img/logo.png"},
         {name: "ground", type:"image", src: "data/new_img/ground.png"},
-        {name: "gameover", type:"image", src: "data/img/gameover.png"},
-        {name: "gameoverbg", type:"image", src: "data/img/gameoverbg.png"},
+        {name: "gameover", type:"image", src: "data/new_img/gameover.png"},
+        {name: "gameoverbg", type:"image", src: "data/new_img/gameoverbg.png"},
         {name: "hit", type:"image", src: "data/img/hit.png"},
         {name: "getready", type:"image", src: "data/img/getready.png"},
         {name: "new", type:"image", src: "data/img/new.png"},
@@ -43,8 +43,9 @@ var game = {
         {name: "theme", type: "audio", src: "data/bgm/"},
         {name: "hit", type: "audio", src: "data/sfx/"},
         {name: "lose", type: "audio", src: "data/sfx/"},
-        {name: "wing", type: "audio", src: "data/sfx/"},
-
+        // {name: "wing", type: "audio", src: "data/sfx/"},
+        // json
+        {name: "shapes", type:"json", src: "data/object_json/figures.json"}
     ],
 
     "onload": function() {
@@ -69,13 +70,14 @@ var game = {
         me.input.bindKey(me.input.KEY.M, "mute", true);
         me.input.bindPointer(me.input.KEY.SPACE);
 
-        me.pool.register("clumsy", game.BirdEntity);
+        me.pool.register("rocket", game.RocketEntity);
         me.pool.register("pipe", game.PipeEntity, true);
         me.pool.register("obstacle", game.ObstacleEntity, true);
         me.pool.register("hit", game.HitEntity, true);
         me.pool.register("ground", game.Ground, true);
         me.pool.register("coin", game.CoinEntity, true);
 
+        me.game.viewport.setBounds(0, 0, 900, 600);
         me.state.change(me.state.MENU);
     }
 };

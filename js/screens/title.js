@@ -26,7 +26,7 @@ game.TitleScreen = me.ScreenObject.extend({
         this.logo = new me.Sprite(
             me.game.viewport.width/2,
             me.game.viewport.height/2 - 20,
-            {image: 'clumsy'}
+            {image: 'rocket'}
         );
         me.game.world.addChild(this.logo, 10);
 
@@ -35,11 +35,8 @@ game.TitleScreen = me.ScreenObject.extend({
             .to({y: me.game.viewport.height/2 - 100}, 1000)
             .easing(me.Tween.Easing.Exponential.InOut).start();
 
-        this.ground1 = me.pool.pull("ground", 0, me.video.renderer.getHeight() - 96);
-        this.ground2 = me.pool.pull("ground", me.video.renderer.getWidth(),
-                                    me.video.renderer.getHeight() - 96);
-        me.game.world.addChild(this.ground1, 11);
-        me.game.world.addChild(this.ground2, 11);
+            this.ground = new TheGround();
+            me.game.world.addChild(this.ground, 11);
 
         me.game.world.addChild(new (me.Renderable.extend ({
             // constructor

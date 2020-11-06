@@ -44,11 +44,8 @@ game.GameOverScreen = me.ScreenObject.extend({
         me.game.world.addChild(new BackgroundLayer('bg', 1));
 
         // ground
-        this.ground1 = me.pool.pull('ground', 0, me.game.viewport.height - 96);
-        this.ground2 = me.pool.pull('ground', me.game.viewport.width,
-            me.video.renderer.getHeight() - 96);
-        me.game.world.addChild(this.ground1, 11);
-        me.game.world.addChild(this.ground2, 11);
+        this.ground = new TheGround();
+        me.game.world.addChild(this.ground, 11);
 
         // add the dialog witht he game information
         if (game.data.newHiScore) {
