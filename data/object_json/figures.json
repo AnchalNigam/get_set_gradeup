@@ -29,17 +29,17 @@
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   4, 1639  ,  4, 82  ,  52, 5  ,  105, 70  ,  104, 1654  ,  95, 1664  ,  14, 1664  ,  7, 1657  ]
+            "shape": [   11, 1634  ,  12, 76  ,  17, 63  ,  96, 71  ,  95, 1652  ,  72, 1655  ,  22, 1656  ,  13, 1647  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   52, 5  ,  4, 82  ,  8, 61  ]
+            "shape": [   96, 71  ,  17, 63  ,  53, 25  ,  62, 21  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   105, 70  ,  52, 5  ,  53, 5  ,  64, 11  ]
+            "shape": [   53, 25  ,  17, 63  ,  52, 15  ]
         }
     ]
     , 
@@ -51,6 +51,4 @@
             "shape": [   900, 96  ,  0, 96  ,  0, 0  ,  900, 0  ]
         }
     ]
-
-    
 }

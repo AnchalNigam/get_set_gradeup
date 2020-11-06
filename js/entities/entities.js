@@ -83,7 +83,15 @@ game.RocketEntity = me.Entity.extend({
 
     onCollision: function(response) {
         var objB = response.b;
-        // var objA = response.a;
+        var objA = response.a;
+
+        var _bounds = objB.getBounds();
+        var _boundsA = objB.getBounds();
+
+
+        console.log(objB.type, 'onCollision - B', _bounds)
+
+        console.log(objA.type, 'onCollision - A', _boundsA)
 
         if ((objB.type === 'obstacle' || objB.type === 'ground')) {
             me.device.vibrate(500);
