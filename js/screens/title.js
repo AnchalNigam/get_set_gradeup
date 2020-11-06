@@ -28,7 +28,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 // renderable
                 this._super(me.Renderable, 'init', [0, 0, 100, 100]);
                 this.text = 'Get Set Gradeup';
-                this.font = new me.Font('gamefont', 35, '#ffff');
+                this.font = new me.Font('gamefont', 35, '#FFFF00');
             },
             draw: function (renderer) {
                 var measure = this.font.measureText(renderer, this.text);
@@ -45,7 +45,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 // renderable
                 this._super(me.Renderable, 'init', [0, 0, 100, 100]);
                 this.text = 'Level : ' + game.data.level;
-                this.font = new me.Font('Georgia', 40, '#50b167');
+                this.font = new me.Font('Arial', 30, '#50b167');
             },
             draw: function (renderer) {
                 var measure = this.font.measureText(renderer, this.text);
@@ -62,12 +62,12 @@ game.TitleScreen = me.ScreenObject.extend({
                 // renderable
                 this._super(me.Renderable, 'init', [0, 0, 100, 100]);
                 this.text = 'Coins Earned : ' + (game.data.level-1)*100;
-                this.font = new me.Font('Georgia', 40, '#50b167');
+                this.font = new me.Font('Arial', 30, '#50b167');
             },
             draw: function (renderer) {
                 var measure = this.font.measureText(renderer, this.text);
                 var xpos = me.game.viewport.width/2 -measure.width/2;
-                var ypos = me.game.viewport.height/2 + 150;
+                var ypos = me.game.viewport.height/2 + 140;
                 this.font.draw(renderer, this.text, xpos, ypos);
             }
         })), 12);
