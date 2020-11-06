@@ -2,8 +2,7 @@ game.TitleScreen = me.ScreenObject.extend({
     init: function(){
         this._super(me.ScreenObject, 'init');
         this.font = null;
-        this.ground1 = null;
-        this.ground2 = null;
+        this.ground = null;
         this.logo = null;
     },
 
@@ -85,8 +84,8 @@ game.TitleScreen = me.ScreenObject.extend({
             .to({y: me.game.viewport.height/2 - 100}, 1000)
             .easing(me.Tween.Easing.Exponential.InOut).start();
 
-            this.ground = new TheGround();
-            me.game.world.addChild(this.ground, 11);
+        this.ground = new TheGround();
+        me.game.world.addChild(this.ground, 11);
 
         me.game.world.addChild(new (me.Renderable.extend ({
             // constructor

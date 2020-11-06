@@ -37,7 +37,6 @@ game.RocketEntity = me.Entity.extend({
     },
 
     update: function(dt) {
-        console.log('player update', this.pos, me.timer.tick);
         var that = this;
         this.pos.x = this.pos.x > 60 ? this.pos.x - me.timer.tick * 0.2 : 60;
         if (!game.data.start) {
@@ -182,14 +181,24 @@ game.PipeGenerator = me.Renderable.extend({
 
 });
 
+const obstacle = [
+    {
+        image: "pencil-long",
+        file: "shapes",
+        obj: "pencil-long",
+        width: 148,
+        height: 1664,
+    }
+]
+
 game.ObstacleEntity = me.Entity.extend({
     init: function(x, y, isRev, gap) {
         isRev = isRev ? isRev : false;
         gap = gap ? gap : 150;
         var settings = {};
-        settings.image = this.image = me.loader.getImage('pencil-long');
-        settings.width = 148;
-        settings.height= 1664;
+        settings.image = this.image = me.loader.getImage(obstacle[0].image);
+        settings.width = this.image.width || obstacle[0].width;
+        settings.height= this.image.height || obstacle[0].height;
 
         this._super(me.Entity, 'init', [x, y, settings]);
 
@@ -261,7 +270,6 @@ game.HitEntity = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
         settings.image = this.image = me.loader.getImage('coin');
-        console.log('image', this.image.width)
         settings.width = 85;
         settings.height= 85;
         settings.spritewidth = 85;
@@ -280,7 +288,6 @@ game.HitEntity = me.Entity.extend({
 
     update: function(dt) {
         if (game.data.start && !this.collected) {
-            console.log('hit update', this.collected);
             // mechanics
             this.pos.add(this.body.accel);
             if (this.pos.x < -this.image.width) {
@@ -294,7 +301,6 @@ game.HitEntity = me.Entity.extend({
 
     onCollision: function(){
         if(!this.collected){
-            console.log('hit onCollision', this.collected);
             this.body.setCollisionMask(me.collision.types.NO_OBJECT);
             me.game.world.removeChild(this);
             game.data.steps++;
@@ -317,17 +323,20 @@ game.Ground = me.Entity.extend({
         this.alwaysUpdate = true;
         this.body.gravity = 0;
         this.updateTime = false;
-        this.body.vel.set(-4, 0);
+        this.body.vel.set(-5, 0);
         this.type = 'ground';
     },
 
     update: function(dt) {
         // mechanics
-        this.pos.add(this.body.vel);
-        if (this.pos.x < -this.renderable.width) {
-            this.pos.x = me.video.renderer.getWidth() - 10;
+        if (game.data.start) {
+            this.pos.add(this.body.vel);
+            if (this.pos.x < -this.renderable.width) {
+                this.pos.x = me.video.renderer.getWidth() - 10;
+            }
+            return true;
         }
-        return true;
+        return false;
     },
 
 });
