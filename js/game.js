@@ -1,15 +1,26 @@
-
-function getLevel() {
+function getParams() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
+    return urlParams;
+}
+function getLevel() {
+    const urlParams = getParams();
     const isRefresh = urlParams.get('refresh');
     const level = urlParams.get('level');
     if(isRefresh === 'true') {
         return 1;
     } else if(level) {
-        return level;
+        return Number(level);
     }
     return 1;
+}
+
+function getCoins() {
+    const urlParams = getParams();
+    if(urlParams.get('coins')) {
+        return urlParams.get('coins')
+    }
+    return 0;
 }
 var game = {
     data: {
@@ -20,6 +31,7 @@ var game = {
         muted: false,
         level: getLevel(),
         levelCompletedCallback: false,
+        coins: getCoins(),
     },
 
     resources: [
@@ -40,6 +52,7 @@ var game = {
         // sounds
         {name: "theme", type: "audio", src: "data/bgm/"},
         {name: "hit", type: "audio", src: "data/sfx/"},
+        {name: "swoosh", type: "audio", src: "data/sfx/"},
         {name: "lose", type: "audio", src: "data/sfx/"},
         // {name: "wing", type: "audio", src: "data/sfx/"},
         // json

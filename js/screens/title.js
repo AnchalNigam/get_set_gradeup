@@ -60,7 +60,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 // size does not matter, it's just to avoid having a zero size
                 // renderable
                 this._super(me.Renderable, 'init', [0, 0, 100, 100]);
-                this.text = 'Coins Earned : ' + (game.data.level-1)*100;
+                this.text = 'Coins Earned : ' + game.data.coins;
                 this.font = new me.Font('Arial', 30, '#50b167');
             },
             draw: function (renderer) {

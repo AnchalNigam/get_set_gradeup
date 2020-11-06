@@ -111,7 +111,8 @@ game.RocketEntity = me.Entity.extend({
             .to({y: finalPos}, 1000)
             .onComplete(function() {
                 console.log('testing android')
-                Android.gameOver(game.data.level, (game.data.level-1)*100);
+                console.log(game.data.level)
+                Android.gameOver(game.data.level, game.data.coins);
                 // me.state.change(me.state.GAME_OVER);
             });
         this.endTween.start();
