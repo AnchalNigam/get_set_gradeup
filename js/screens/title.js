@@ -44,7 +44,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 // renderable
                 this._super(me.Renderable, 'init', [0, 0, 100, 100]);
                 this.text = 'Level : ' + game.data.level;
-                this.font = new me.Font('Arial', 30, '#50b167');
+                this.font = new me.Font('gamefont', 33, '#FFFF00');
             },
             draw: function (renderer) {
                 var measure = this.font.measureText(renderer, this.text);
@@ -61,7 +61,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 // renderable
                 this._super(me.Renderable, 'init', [0, 0, 100, 100]);
                 this.text = 'Coins Earned : ' + game.data.coins;
-                this.font = new me.Font('Arial', 30, '#50b167');
+                this.font = new me.Font('gamefont', 33, '#FFFF00');
             },
             draw: function (renderer) {
                 var measure = this.font.measureText(renderer, this.text);
