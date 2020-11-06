@@ -3,22 +3,22 @@ function getParams() {
     const urlParams = new URLSearchParams(queryString);
     return urlParams;
 }
-function getLevel() {
+function getCurrentLevel() {
     const urlParams = getParams();
     const isRefresh = urlParams.get('refresh');
-    const level = urlParams.get('level');
+    const nextLevelNumber = urlParams.get('nextLevelNumber');
     if(isRefresh === 'true') {
         return 1;
-    } else if(level) {
-        return Number(level);
+    } else if(nextLevelNumber) {
+        return Number(nextLevelNumber);
     }
     return 1;
 }
 
-function getCoins() {
+function getEarnedCoins() {
     const urlParams = getParams();
-    if(urlParams.get('coins')) {
-        return urlParams.get('coins')
+    if(urlParams.get('coinsEarned')) {
+        return urlParams.get('coinsEarned')
     }
     return 0;
 }
@@ -29,9 +29,9 @@ var game = {
         start: false,
         newHiScore: false,
         muted: false,
-        level: getLevel(),
+        level: getCurrentLevel(),
         levelCompletedCallback: false,
-        coins: getCoins(),
+        coins: getEarnedCoins(),
     },
 
     resources: [
