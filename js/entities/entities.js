@@ -5,7 +5,7 @@ game.RocketEntity = me.Entity.extend({
         settings.width = 120;
         settings.height = 90;
 
-        this._super(me.Entity, 'init', [x, y, settings]);
+        this._super(me.Entity, 'init', [200, y, settings]);
 
         this.body.removeShapeAt(0);
         this.body.addShapesFromJSON(me.loader.getJSON("shapes"), "rocket");
@@ -15,8 +15,9 @@ game.RocketEntity = me.Entity.extend({
 
         this.alwaysUpdate = true;
         this.body.gravity = 0.1;
-        this.maxAngleRotation = Number.prototype.degToRad(0);
-        this.maxAngleRotationDown = Number.prototype.degToRad(45);
+        this.body.collisionType = me.collision.types.PLAYER_OBJECT;
+        this.maxAngleRotation = Number.prototype.degToRad(15);
+        this.maxAngleRotationDown = Number.prototype.degToRad(30);
         
         // a tween object for the flying physic effect
         this.flyTween = new me.Tween(this.pos);
@@ -36,12 +37,14 @@ game.RocketEntity = me.Entity.extend({
     },
 
     update: function(dt) {
+        console.log('player update', this.pos, me.timer.tick);
         var that = this;
-        this.pos.x = 60;
+        this.pos.x = this.pos.x > 60 ? this.pos.x - me.timer.tick * 0.05 : 60;
         if (!game.data.start) {
             return this._super(me.Entity, 'update', [dt]);
         }
         this.renderable.currentTransform.identity();
+
         if (me.input.isKeyPressed('fly')) {
             this.gravityForce = 0.01;
             var currentPos = this.pos.y;
@@ -59,7 +62,7 @@ game.RocketEntity = me.Entity.extend({
             this.angleTween.start();
 
         } else {
-            this.gravityForce += 0.2;
+            this.gravityForce += 0.1;
             this.pos.y += me.timer.tick * this.gravityForce;
             this.currentAngle += Number.prototype.degToRad(3);
             if (this.currentAngle >= this.maxAngleRotationDown) {
@@ -83,26 +86,15 @@ game.RocketEntity = me.Entity.extend({
 
     onCollision: function(response) {
         var objB = response.b;
-        var objA = response.a;
-
-        var _bounds = objB.getBounds();
-        var _boundsA = objA.getBounds();
-
-
-        console.log(objB.type, 'onCollision - B', _bounds)
-
-        console.log(objA.type, 'onCollision - A', _boundsA)
-
         if ((objB.type === 'obstacle' || objB.type === 'ground')) {
             me.device.vibrate(500);
             this.collided = true;
-        }
-        // remove the hit box
-        if (objB.type === 'hit') {
+            return true;
+        } else if (objB.type === 'hit') {
+            objB.body.setCollisionMask(me.collision.types.NO_OBJECT);
             me.game.world.removeChild(objB);
-            game.data.steps++;
-            me.audio.play('hit');
         }
+        return false
     },
 
     endAnimation: function() {
@@ -114,8 +106,7 @@ game.RocketEntity = me.Entity.extend({
         this.flyTween.stop();
         this.renderable.currentTransform.identity();
         this.renderable.currentTransform.rotate(Number.prototype.degToRad(90));
-        var finalPos = me.game.viewport.height - this.height - 96;
-        this.renderable.flicker(2000)
+        var finalPos = me.game.viewport.height - this.height - 45;
         this.endTween
             .to({y: currentPos}, 1000)
             .to({y: finalPos}, 1000)
@@ -212,6 +203,7 @@ game.ObstacleEntity = me.Entity.extend({
         me.Polygon.prototype.updateBounds.apply(this);
 
         this.alwaysUpdate = true;
+        this.body.collisionType = me.collision.types.ENEMY_OBJECT;
         this.body.gravity = 0;
         this.body.vel.set(-5, 0);
         this.type = 'obstacle';
@@ -231,7 +223,6 @@ game.ObstacleEntity = me.Entity.extend({
         return true;
     },
 });
-
 
 game.ObstacleGenerator = me.Renderable.extend({
     init: function() {
@@ -268,42 +259,58 @@ game.ObstacleGenerator = me.Renderable.extend({
 game.HitEntity = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
-        settings.image = this.image = me.loader.getImage('hit');
-        settings.width = 148;
-        settings.height= 60;
-        settings.framewidth = 148;
-        settings.frameheight = 60;
+        settings.image = this.image = me.loader.getImage('coin');
+        console.log('image', this.image.width)
+        settings.width = 85;
+        settings.height= 85;
+        settings.spritewidth = 85;
+        settings.spriteheight= 85;
 
         this._super(me.Entity, 'init', [x, y, settings]);
+
         this.alwaysUpdate = true;
-        this.body.gravity = 0;
         this.updateTime = false;
-        this.renderable.alpha = 0;
+        this.body.collisionType = me.collision.types.COLLECTABLE_OBJECT;
+        this.body.gravity = 0;
         this.body.accel.set(-5, 0);
-        this.body.removeShapeAt(0);
-        this.body.addShape(new me.Rect(0, 0, settings.width - 30, settings.height - 30));
+        this.collected = false
         this.type = 'hit';
     },
 
     update: function(dt) {
-        // mechanics
-        this.pos.add(this.body.accel);
-        if (this.pos.x < -this.image.width) {
-            me.game.world.removeChild(this);
+        if (game.data.start && !this.collected) {
+            console.log('hit update', this.collected);
+            // mechanics
+            this.pos.add(this.body.accel);
+            if (this.pos.x < -this.image.width) {
+                me.game.world.removeChild(this);
+            }
+            this.body.updateBounds();
+            this._super(me.Entity, "update", [dt]);
         }
-        me.Rect.prototype.updateBounds.apply(this);
-        this._super(me.Entity, "update", [dt]);
         return true;
     },
 
+    onCollision: function(){
+        if(!this.collected){
+            console.log('hit onCollision', this.collected);
+            this.body.setCollisionMask(me.collision.types.NO_OBJECT);
+            me.game.world.removeChild(this);
+            game.data.steps++;
+            me.audio.play('hit');
+            this.collected = true;
+            return true;
+        }
+        return false;
+    }
 });
 
 game.Ground = me.Entity.extend({
-    init: function(x, y, ground_width) {
+    init: function(x, y, ground_width, ground_height) {
         var settings = {};
         settings.image = me.loader.getImage('ground');
         settings.width = ground_width;
-        settings.height= 96;
+        settings.height= ground_height;
         // initiate
         this._super(me.Entity, 'init', [x, y, settings]);
         this.alwaysUpdate = true;
@@ -327,25 +334,12 @@ game.Ground = me.Entity.extend({
 var TheGround = me.Object.extend({
 init: function() {
     const video_width = me.video.renderer.getWidth();
-    this.ground1 = me.pool.pull('ground', 0, me.video.renderer.getHeight() - 96, video_width);
-    this.ground2 = me.pool.pull('ground', me.video.renderer.getWidth(), me.video.renderer.getHeight() - 96, video_width);
+    const ground_height = 45;
+    this.ground1 = me.pool.pull('ground', 0, me.video.renderer.getHeight() - ground_height, video_width, ground_height);
+    this.ground2 = me.pool.pull('ground', me.video.renderer.getWidth(), me.video.renderer.getHeight() - ground_height, video_width, ground_height);
     me.game.world.addChild(this.ground1, 11);
     me.game.world.addChild(this.ground2, 11);
 },
 
 update: function () { return true; }
-})
-
-
-
-game.CoinEntity = me.CollectableEntity.extend({
-    init: function(x,y,settings){
-        settings.image = me.loader.getImage('coin');;
-        settings.spritewidth = 32;
-        this.parent(x,y,settings);
-    },
-    onCollision: function(){
-        this.collidable = false;
-        me.game.remove(this);
-    }
 });

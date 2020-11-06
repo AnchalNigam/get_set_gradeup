@@ -26,20 +26,17 @@ var game = {
             // images
         {name: "bg", type:"image", src: "data/new_img/bg.png"},
         {name: "rocket", type:"image", src: "data/new_img/rocket.png"},
-        {name: "pencil", type:"image", src: "data/new_img/obstacle_pencil.png"},
         {name: "pinkhook", type:"image", src: "data/new_img/pink_hook.png"},
-        {name: "coin", type:"image", src: "data/new_img/spinning_coin_gold.png"},
+        {name: "coin", type:"image", src: "data/new_img/coin.png"},
         {name: "pencil-long", type:"image", src: "data/new_img/pencil-long.png"},
-        {name: "pipe", type:"image", src: "data/img/pipe.png"},
-        {name: "logo", type:"image", src: "data/img/logo.png"},
         {name: "ground", type:"image", src: "data/new_img/ground.png"},
-        {name: "gameover", type:"image", src: "data/new_img/gameover.png"},
-        {name: "gameoverbg", type:"image", src: "data/new_img/gameoverbg.png"},
         {name: "hit", type:"image", src: "data/img/hit.png"},
         {name: "getready", type:"image", src: "data/img/getready.png"},
         {name: "new", type:"image", src: "data/img/new.png"},
         {name: "share", type:"image", src: "data/img/share.png"},
         {name: "tweet", type:"image", src: "data/img/tweet.png"},
+        {name: "pipe", type:"image", src: "data/img/pipe.png"},
+        {name: "logo", type:"image", src: "data/img/logo.png"},
         // sounds
         {name: "theme", type: "audio", src: "data/bgm/"},
         {name: "hit", type: "audio", src: "data/sfx/"},
@@ -76,7 +73,6 @@ var game = {
         me.pool.register("obstacle", game.ObstacleEntity, true);
         me.pool.register("hit", game.HitEntity, true);
         me.pool.register("ground", game.Ground, true);
-        me.pool.register("coin", game.CoinEntity, true);
 
         me.game.viewport.setBounds(0, 0, 900, 600);
         me.state.change(me.state.MENU);

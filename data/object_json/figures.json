@@ -1,41 +1,38 @@
 { 
-    
     "rocket": [
-        
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   50, 80  ,  68, 77  ,  55, 87  ,  41, 90  ]
+            "shape": [   41, 69  ,  31, 57  ,  34, 41  ,  40, 36  ,  69, 69  ,  63, 73  ,  57, 75  ,  50, 76  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   25, 43  ,  38, 32  ,  52, 29  ,  27, 51  ,  17, 55  ]
+            "shape": [   30, 47  ,  34, 41  ,  31, 57  ,  29, 52  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   109, 34  ,  102, 49  ,  91, 58  ,  77, 67  ,  28, 57  ,  52, 29  ,  99, 14  ,  108, 19  ]
+            "shape": [   99, 47  ,  90, 57  ,  53, 31  ,  68, 20  ,  81, 16  ,  92, 15  ,  103, 21  ,  105, 34  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   39, 71  ,  28, 57  ,  77, 67  ,  68, 77  ,  50, 80  ]
+            "shape": [   103, 21  ,  92, 15  ,  99, 17  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   81, 12  ,  92, 12  ,  99, 14  ,  52, 29  ,  66, 17  ]
+            "shape": [   76, 63  ,  40, 36  ,  53, 31  ,  90, 57  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   52, 29  ,  28, 57  ,  27, 51  ]
+            "shape": [   69, 69  ,  40, 36  ,  76, 63  ]
         }
     ]
     , 
     "pencil-long": [
-        
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
@@ -49,11 +46,56 @@
     ]
     , 
     "ground": [
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   1, -0.5  ,  1502, -0.5  ,  1505.5, 39  ,  0, 47.5  ]
+        }
+    ]
+    , 
+    "pink_hook": [
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   205.5, 486  ,  205.5, 606  ,  175, 642.5  ,  155.5, 564  ,  157.5, 474  ,  192, 460.5  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   175, 642.5  ,  138.5, 589  ,  155.5, 564  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   35, 642.5  ,  5.5, 616  ,  89, 593.5  ,  138.5, 589  ,  175, 642.5  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   61.5, 565  ,  5.5, 616  ,  1, -0.5  ,  2, -0.5  ,  60.5, 5  ]
+        } ,
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   5.5, 616  ,  61.5, 565  ,  89, 593.5  ]
+        }
+    ]
+    , 
+    "coin-sprite": [
         
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   900, 96  ,  0, 96  ,  0, 0  ,  900, 0  ]
+            "shape": [   231, 1725  ,  268, 844  ,  927, 262  ,  1713, 295  ,  2282, 838  ,  2325, 1719  ,  1720, 2358  ,  842, 2362  ]
+        }
+    ]
+    , 
+    "pencil-withbooks": [
+        
+        {
+            "density": 2, "friction": 0, "bounce": 0, 
+            "filter": { "categoryBits": 1, "maskBits": 65535 },
+            "shape": [   25.5, 556  ,  26.5, 66  ,  74, 4.5  ,  75, 4.5  ,  125.5, 66  ,  125.5, 566  ,  106, 585.5  ,  36, 583.5  ]
         }
     ]
 }
