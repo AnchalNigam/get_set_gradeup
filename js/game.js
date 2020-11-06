@@ -19,6 +19,7 @@ var game = {
         newHiScore: false,
         muted: false,
         level: getLevel(),
+        levelCompletedCallback: false,
     },
 
     resources: [
