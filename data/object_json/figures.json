@@ -5,32 +5,32 @@
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   50, 80  ,  68, 77  ,  55, 87  ,  41, 90  ]
+            "shape": [   41, 69  ,  31, 57  ,  34, 41  ,  40, 36  ,  69, 69  ,  63, 73  ,  57, 75  ,  50, 76  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   25, 43  ,  38, 32  ,  52, 29  ,  27, 51  ,  17, 55  ]
+            "shape": [   30, 47  ,  34, 41  ,  31, 57  ,  29, 52  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   109, 34  ,  102, 49  ,  91, 58  ,  77, 67  ,  28, 57  ,  52, 29  ,  99, 14  ,  108, 19  ]
+            "shape": [   99, 47  ,  90, 57  ,  53, 31  ,  68, 20  ,  81, 16  ,  92, 15  ,  103, 21  ,  105, 34  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   39, 71  ,  28, 57  ,  77, 67  ,  68, 77  ,  50, 80  ]
+            "shape": [   103, 21  ,  92, 15  ,  99, 17  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   81, 12  ,  92, 12  ,  99, 14  ,  52, 29  ,  66, 17  ]
+            "shape": [   76, 63  ,  40, 36  ,  53, 31  ,  90, 57  ]
         } ,
         {
             "density": 2, "friction": 0, "bounce": 0, 
             "filter": { "categoryBits": 1, "maskBits": 65535 },
-            "shape": [   52, 29  ,  28, 57  ,  27, 51  ]
+            "shape": [   69, 69  ,  40, 36  ,  76, 63  ]
         }
     ]
     , 
@@ -55,5 +55,9 @@
             "filter": { "categoryBits": 1, "maskBits": 65535 },
             "shape": [   900, 96  ,  0, 96  ,  0, 0  ,  900, 0  ]
         }
+    ]
+    , 
+    "ground (2)": [
+        
     ]
 }

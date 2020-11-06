@@ -15,8 +15,8 @@ game.RocketEntity = me.Entity.extend({
 
         this.alwaysUpdate = true;
         this.body.gravity = 0.1;
-        this.maxAngleRotation = Number.prototype.degToRad(0);
-        this.maxAngleRotationDown = Number.prototype.degToRad(45);
+        this.maxAngleRotation = Number.prototype.degToRad(15);
+        this.maxAngleRotationDown = Number.prototype.degToRad(30);
         
         // a tween object for the flying physic effect
         this.flyTween = new me.Tween(this.pos);
@@ -59,7 +59,7 @@ game.RocketEntity = me.Entity.extend({
             this.angleTween.start();
 
         } else {
-            this.gravityForce += 0.2;
+            this.gravityForce += 0.1;
             this.pos.y += me.timer.tick * this.gravityForce;
             this.currentAngle += Number.prototype.degToRad(3);
             if (this.currentAngle >= this.maxAngleRotationDown) {
@@ -83,15 +83,6 @@ game.RocketEntity = me.Entity.extend({
 
     onCollision: function(response) {
         var objB = response.b;
-        var objA = response.a;
-
-        var _bounds = objB.getBounds();
-        var _boundsA = objA.getBounds();
-
-
-        console.log(objB.type, 'onCollision - B', _bounds)
-
-        console.log(objA.type, 'onCollision - A', _boundsA)
 
         if ((objB.type === 'obstacle' || objB.type === 'ground')) {
             me.device.vibrate(500);
@@ -114,8 +105,7 @@ game.RocketEntity = me.Entity.extend({
         this.flyTween.stop();
         this.renderable.currentTransform.identity();
         this.renderable.currentTransform.rotate(Number.prototype.degToRad(90));
-        var finalPos = me.game.viewport.height - this.height - 96;
-        this.renderable.flicker(2000)
+        var finalPos = me.game.viewport.height - this.height - 45;
         this.endTween
             .to({y: currentPos}, 1000)
             .to({y: finalPos}, 1000)
@@ -299,11 +289,11 @@ game.HitEntity = me.Entity.extend({
 });
 
 game.Ground = me.Entity.extend({
-    init: function(x, y, ground_width) {
+    init: function(x, y, ground_width, ground_height) {
         var settings = {};
         settings.image = me.loader.getImage('ground');
         settings.width = ground_width;
-        settings.height= 96;
+        settings.height= ground_height;
         // initiate
         this._super(me.Entity, 'init', [x, y, settings]);
         this.alwaysUpdate = true;
@@ -327,8 +317,9 @@ game.Ground = me.Entity.extend({
 var TheGround = me.Object.extend({
 init: function() {
     const video_width = me.video.renderer.getWidth();
-    this.ground1 = me.pool.pull('ground', 0, me.video.renderer.getHeight() - 96, video_width);
-    this.ground2 = me.pool.pull('ground', me.video.renderer.getWidth(), me.video.renderer.getHeight() - 96, video_width);
+    const ground_height = 45;
+    this.ground1 = me.pool.pull('ground', 0, me.video.renderer.getHeight() - ground_height, video_width, ground_height);
+    this.ground2 = me.pool.pull('ground', me.video.renderer.getWidth(), me.video.renderer.getHeight() - ground_height, video_width, ground_height);
     me.game.world.addChild(this.ground1, 11);
     me.game.world.addChild(this.ground2, 11);
 },
