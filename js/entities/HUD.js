@@ -87,7 +87,7 @@ game.HUD.TimeLeft = me.Renderable.extend({
         this._super(me.Renderable, "init", [me.game.viewport.width-170, 1, 10, 10]);
 
         // local copy of the global score
-        this.stepsFont = new me.Font('Georgia', 40, "#FFFF00", 'center');
+        this.stepsFont = new me.Font('Georgia', 35, "#FFFF00", 'center');
     },
 
     draw: function (renderer) {
@@ -141,7 +141,7 @@ game.HUD.Coins = me.Renderable.extend({
         this._super(me.Renderable, "init", [30, 60, 10, 10]);
 
         // local copy of the global score
-        this.stepsFont = new me.Font('Georgia', 40, '#50b167');
+        this.stepsFont = new me.Font('Georgia', 35, '#50b167');
     },
 
     draw: function (renderer) {
@@ -157,7 +157,7 @@ game.HUD.Levels = me.Renderable.extend({
         this._super(me.Renderable, "init", [30, 20, 10, 10]);
 
         // local copy of the global score
-        this.stepsFont = new me.Font('Georgia', 40, '#50b167');
+        this.stepsFont = new me.Font('Georgia', 35, '#50b167');
     },
 
     draw: function (renderer) {
