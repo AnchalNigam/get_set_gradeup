@@ -38,7 +38,6 @@ var game = {
             // images
         {name: "bg", type:"image", src: "data/new_img/bg.png"},
         {name: "rocket", type:"image", src: "data/new_img/rocket.png"},
-        {name: "pinkhook", type:"image", src: "data/new_img/pink_hook.png"},
         {name: "coin", type:"image", src: "data/new_img/coin.png"},
         {name: "pencil-long", type:"image", src: "data/new_img/pencil-long.png"},
         {name: "ground", type:"image", src: "data/new_img/ground.png"},
